@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const {loadContact} = require('./utils/contacts')
+const {loadContact, findContact} = require('./utils/contacts')
 
 const morgan = require('morgan')
 const app = express()
@@ -68,13 +68,14 @@ app.get('/contact', (req, res) => {
     })
 })
 
-app.get('/detail', (req, res) => {
-    const contacts = loadContact()
+app.get('/contact/:name', (req, res) => {
+    const contact = findContact(req.params.name)
+
     res.render('detail', {
         layout: 'layouts/main-layout',
         // nama : 'Nasheh Annafii',
         title: 'Detail',
-        contacts
+        contact
     })
 })
 

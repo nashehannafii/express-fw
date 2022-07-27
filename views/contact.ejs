@@ -1,6 +1,14 @@
 <div class="container mt-3">
   <div class="row pt-5">
     <div class="col text-center">
+
+      <% if (contacts.length === 0) { %>
+        <div class="alert alert-danger" role="alert">
+          Data Contact Tidak Ada kembali ke <br>
+          <!-- <a href="/contact" class="alert-link">&laquo; halaman Contact</a> -->
+        </div>
+      <% } else { %>
+
       <h2 class="display-4">Daftar Kontak</h2>
       <p class="lead">--------------</p>
       <table class="table">
@@ -19,11 +27,14 @@
             <th scope="row"><%= i %> </th>
             <td><%= contact.name %> </td>
             <td><%= contact.phone %> </td>
-            <td><a href="/detail" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i> detail</a></td>
+            <td><a href="/contact/<%= contact.name %>" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i> detail</a></td>
           </tr>
           <% i++ }) %>
         </tbody>
       </table>
+
+      <% } %> 
+
     </div>
   </div>
 </div>
