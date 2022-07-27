@@ -59,10 +59,22 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/contact', (req, res) => {
+    const contacts = loadContact()
     res.render('contact', {
         layout: 'layouts/main-layout',
         // nama : 'Nasheh Annafii',
-        title: 'Contact'
+        title: 'Contact',
+        contacts
+    })
+})
+
+app.get('/detail', (req, res) => {
+    const contacts = loadContact()
+    res.render('detail', {
+        layout: 'layouts/main-layout',
+        // nama : 'Nasheh Annafii',
+        title: 'Detail',
+        contacts
     })
 })
 
