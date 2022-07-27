@@ -6,11 +6,33 @@ const port = 3000
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-    res.render('index')
+    const mahasiswa = [
+        {
+            nama: 'Rizki',
+            email: 'rizki@gmail.com'
+        },
+        {
+            nama: 'Imam',
+            email: 'imam@gmail.com',
+        },
+        {
+            nama: 'Wahid',
+            email: 'wahid@gmail.com'
+        },
+        {
+            nama: 'Zaim',
+            email: 'zaim@gmail.com'
+        }
+    ]
+    res.render('index', {
+        nama : 'Nasheh Annafii',
+        title: 'Home',
+        mahasiswa
+    })
 })
 
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', {nama : 'Nasheh Annafii',title: 'Home'})
 })
 
 app.get('/product/:id', (req, res) => {
