@@ -1,12 +1,27 @@
 const express = require('express')
-const expressEjsLayouts = require('express-ejs-layouts')
+const expressLayouts = require('express-ejs-layouts')
+const {loadContact} = require('./utils/contacts')
+
+const morgan = require('morgan')
 const app = express()
 const port = 3000
 // const ejs = require('ejs')
 
 // EJS
 app.set('view engine', 'ejs')
-app.use(expressEjsLayouts)
+//third party middleware
+app.use(morgan('dev'))
+app.use(expressLayouts)
+
+// build in middleware
+app.use(express.static('public'))
+
+// application level middleware
+
+app.use( (req, res, next) => {
+    console.log('Time : ',Date.now())
+    next()
+})
 
 app.get('/', (req, res) => {
     const mahasiswa = [
@@ -38,18 +53,27 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', {
         layout: 'layouts/main-layout',
-        nama : 'Nasheh Annafii',
-        title: 'Home'
+        // nama : 'Nasheh Annafii',
+        title: 'About'
     })
 })
 
-app.get('/product/:id', (req, res) => {
-    res.send(`Product id : ${req.params.id} <br> Category : ${req.query.category}`)
+app.get('/contact', (req, res) => {
+    res.render('contact', {
+        layout: 'layouts/main-layout',
+        // nama : 'Nasheh Annafii',
+        title: 'Contact'
+    })
 })
 
-app.use('/', (req, res) => {
-    res.status(404).send('404 Not Found')
-    res.send('404 Not Found')
+// app.get('/product/:id', (req, res) => {
+//     res.send(`Product id : ${req.params.id} <br> Category : ${req.query.category}`)
+// })
+
+app.use('/',(req, res) => {
+    res.status(404).render('404', {
+        layout: '404',
+    })
 })
 
 app.listen(port, () => {
