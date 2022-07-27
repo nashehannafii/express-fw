@@ -1,9 +1,12 @@
 const express = require('express')
+const expressEjsLayouts = require('express-ejs-layouts')
 const app = express()
 const port = 3000
+// const ejs = require('ejs')
 
 // EJS
 app.set('view engine', 'ejs')
+app.use(expressEjsLayouts)
 
 app.get('/', (req, res) => {
     const mahasiswa = [
@@ -25,6 +28,7 @@ app.get('/', (req, res) => {
         }
     ]
     res.render('index', {
+        layout: 'layouts/main-layout',
         nama : 'Nasheh Annafii',
         title: 'Home',
         mahasiswa
@@ -32,7 +36,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    res.render('about', {nama : 'Nasheh Annafii',title: 'Home'})
+    res.render('about', {
+        layout: 'layouts/main-layout',
+        nama : 'Nasheh Annafii',
+        title: 'Home'
+    })
 })
 
 app.get('/product/:id', (req, res) => {
