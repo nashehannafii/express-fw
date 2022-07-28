@@ -144,13 +144,13 @@ app.get('/contact/edit/:name', (req, res) => {
 })
 
 app.post('/contact/edit', [
-    // body('name').custom((value, {req}) => {
-    //     const duplikat = cekDuplikat(value)
-    //     if (value !==  duplikat) {
-    //         throw new Error('Nama contact sudah digunakan')
-    //     }
-    //     return true
-    // }),
+    body('name').custom((value, {req}) => {
+        const duplikat = cekDuplikat(value)
+        if (value !== req.body.oldName && duplikat) {
+            throw new Error('Nama contact sudah digunakan')
+        }
+        return true
+    }),
     check('email', 'Email tidak valid').isEmail(),
     check('phone', 'Nomor HP tidak valid').isMobilePhone('id-ID')
 ]
