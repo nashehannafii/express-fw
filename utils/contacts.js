@@ -53,27 +53,33 @@ const cekDuplikat = (name) => {
     return contacts.find((contact) => contact.name === name)  
 }
 
-const editContact = (oldName, name, phone, email) => {
+const editContact = (datas) => {
+
     const data = loadContact()
 
-    console.log(data)
+    const updateData = {
+        // oldName,
+        name: datas.name,
+        phone: datas.phone,
+        email: datas.email
+    }
+
+    console.log('databefore',data)
+    console.log('update',updateData)
     const contact = data.find(
-        (contact) => contact.name === oldName
+        (contact) => contact.name === datas.oldName
     )
     
     const index = data.indexOf(contact)
     data.splice(index, 1)
     
-    const updateData = {
-        name,
-        phone,
-        email
-    }
-    console.log(data)
-    console.log(updateData)
-    delete data.oldName
+    
+    console.log('datacontact',contact)
+    console.log('data',data)
+    console.log('update',updateData)
+    // console.log('splice',data.splice(index, 1))
     data.push(updateData)
-    fs.writeFileSync(dataPath, JSON.stringify(updateData))
+    fs.writeFileSync(dataPath, JSON.stringify(data))
     return updateData
 }
 

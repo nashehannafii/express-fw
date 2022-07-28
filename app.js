@@ -1,7 +1,7 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 
-const { loadContact, findContact, addContact, removeContact, cekDuplikat } = require('./utils/contacts')
+const { loadContact, findContact, addContact, removeContact, cekDuplikat, editContact } = require('./utils/contacts')
 const { body, validationResult, check } = require('express-validator')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -144,13 +144,13 @@ app.get('/contact/edit/:name', (req, res) => {
 })
 
 app.post('/contact/edit', [
-    body('name').custom((value, {req}) => {
-        const duplikat = cekDuplikat(value)
-        if (value !==  duplikat) {
-            throw new Error('Nama contact sudah digunakan')
-        }
-        return true
-    }),
+    // body('name').custom((value, {req}) => {
+    //     const duplikat = cekDuplikat(value)
+    //     if (value !==  duplikat) {
+    //         throw new Error('Nama contact sudah digunakan')
+    //     }
+    //     return true
+    // }),
     check('email', 'Email tidak valid').isEmail(),
     check('phone', 'Nomor HP tidak valid').isMobilePhone('id-ID')
 ]
@@ -164,10 +164,10 @@ app.post('/contact/edit', [
                 contact: req.body
             })
         } else {
-            // addContact(req.body.name, req.body.phone, req.body.email)
+            editContact(req.body)
         }
-        // req.flash('msg', 'Contact berhasil ditambahkan')
-        // res.redirect('/contact')
+        req.flash('msg', 'Contact berhasil diupdate')
+        res.redirect('/contact')
     })
 
 
