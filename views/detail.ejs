@@ -15,7 +15,8 @@
           <div class="card-body">
             <h5 class="card-title"><%= contact.phone %></h5>
             <p class="card-text"><%= contact.email %></p>
-            <a href="/contact" class="btn btn-danger badge"><i class="bi bi-backspace"></i> Back</a>
+            <a href="/contact/delete/<%= contact.name %>" class="btn btn-danger badge">delete</a>
+            <a href="/contact" class="btn btn-info badge"><i class="bi bi-backspace"></i> Back</a>
           </div>
         </div>
         

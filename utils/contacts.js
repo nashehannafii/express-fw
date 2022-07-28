@@ -25,6 +25,17 @@ const findContact = (name) => {
     return contact
 }
 
+const removeContact = (name) => {
+    const data = loadContact()
+    const contact = data.find(
+        (contact) => contact.name === name
+    )
+    const index = data.indexOf(contact)
+    data.splice(index, 1)
+    fs.writeFileSync(dataPath, JSON.stringify(data))
+    console.log(`Contact ${name} berhasil dihapus`)
+}
+
 const addContact = (name, phone, email) => {
     const contacts = loadContact()
     const contact = {
@@ -36,5 +47,21 @@ const addContact = (name, phone, email) => {
     fs.writeFileSync(dataPath, JSON.stringify(contacts))
     return contact;
 }
+ 
+const cekDuplikat = (name) => {
+    const contacts = loadContact()
+    return contacts.find((contact) => contact.name === name)  
+}
 
-module.exports = { loadContact, findContact, addContact }
+const editContact = (name, phone, email) => {
+    const contacts = loadContact()
+    const contact = contacts.find(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+    )
+    contact.phone = phone
+    contact.email = email
+    fs.writeFileSync(dataPath, JSON.stringify(contacts))
+    return contact
+}
+
+module.exports = { loadContact, findContact, addContact, removeContact, cekDuplikat, editContact }
