@@ -25,4 +25,16 @@ const findContact = (name) => {
     return contact
 }
 
-module.exports = { loadContact, findContact }
+const addContact = (name, phone, email) => {
+    const contacts = loadContact()
+    const contact = {
+        name,
+        phone,
+        email
+    }
+    contacts.push(contact)
+    fs.writeFileSync(dataPath, JSON.stringify(contacts))
+    return contact;
+}
+
+module.exports = { loadContact, findContact, addContact }
