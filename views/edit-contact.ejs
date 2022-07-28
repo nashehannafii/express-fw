@@ -15,7 +15,7 @@
       <% } %> 
       <form action="/contact/edit" method="post">
 
-        <input type="hidden" class="form-control" name="oldName" id="oldName" placeholder="Nasheh" required value="<%= contact.name %>">
+        <input type="hidden" class="form-control" name="oldName" id="oldName" placeholder="Nasheh" required value="<%= contact.oldName || contact.name %>">
 
         <div class="form-floating mb-3">
           <input type="text" class="form-control" name="name" id="name" placeholder="Nasheh" required value="<%= contact.name %>">

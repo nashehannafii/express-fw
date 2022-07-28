@@ -45,7 +45,7 @@ const addContact = (name, phone, email) => {
     }
     contacts.push(contact)
     fs.writeFileSync(dataPath, JSON.stringify(contacts))
-    return contact;
+    return contact
 }
  
 const cekDuplikat = (name) => {
@@ -53,15 +53,28 @@ const cekDuplikat = (name) => {
     return contacts.find((contact) => contact.name === name)  
 }
 
-const editContact = (name, phone, email) => {
-    const contacts = loadContact()
-    const contact = contacts.find(
-        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+const editContact = (oldName, name, phone, email) => {
+    const data = loadContact()
+
+    console.log(data)
+    const contact = data.find(
+        (contact) => contact.name === oldName
     )
-    contact.phone = phone
-    contact.email = email
-    fs.writeFileSync(dataPath, JSON.stringify(contacts))
-    return contact
+    
+    const index = data.indexOf(contact)
+    data.splice(index, 1)
+    
+    const updateData = {
+        name,
+        phone,
+        email
+    }
+    console.log(data)
+    console.log(updateData)
+    delete data.oldName
+    data.push(updateData)
+    fs.writeFileSync(dataPath, JSON.stringify(updateData))
+    return updateData
 }
 
 module.exports = { loadContact, findContact, addContact, removeContact, cekDuplikat, editContact }
